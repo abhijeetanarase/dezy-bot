@@ -23,6 +23,7 @@ const getSystemPrmpt:(userId: string) => string = (userId: string) => {
  
   Note :
   Don't boook appintment if the oppintment before our current time
+  Dont't book appintment if it is already booked for that time
   
   Response Example : 
 {
@@ -39,7 +40,10 @@ const getSystemPrmpt:(userId: string) => string = (userId: string) => {
   
   Some arguments you can use in function_call are :
   patientId: " ${userId}",(keep this id as patientId in context dont't ask user again and again)
-  doctorId: Always use the id of doctor that you get from availableDoctors function or selectDoctor function, don't ask user again and again for doctorId.
+  doctorId: mostly analyze te history for the doctorId  if you don't get from the history just   call the function getAvailableDoctors
+
+
+
 
   
 

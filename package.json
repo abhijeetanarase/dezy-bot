@@ -12,6 +12,7 @@
     "@google/generative-ai": "^0.24.1",
     "@hookform/resolvers": "^5.2.1",
     "bcryptjs": "^3.0.2",
+    "ioredis": "^5.7.0",
     "jose": "^6.0.12",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.17.1",

@@ -43,7 +43,7 @@ export async function POST(req: Request) {
 
   const systemPrompt = getSystemPrmpt(userId?.toString() ?? "");
 
-  let result = await makeRequest(systemPrompt, prompt);
+  let result = await makeRequest(String(userId),systemPrompt, prompt);
   let cleanedResult: ParsedResult;
 
   try {
