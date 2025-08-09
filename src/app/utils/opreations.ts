@@ -33,8 +33,8 @@ export async function handleBookAppointment(result: ParsedResult) {
         );
     }
 
-    const startUTC = new Date(start);
-    const endUTC = new Date(end);
+    const startUTC = new Date(String(start));
+    const endUTC = new Date(String(end));
     
     // Convert from IST to UTC (if input is in IST)
     startUTC.setMinutes(startUTC.getMinutes() - 330);
@@ -98,8 +98,8 @@ export async function handleCheckSlotAvailability(result: ParsedResult) {
         );
     }
 
-    const startDate = new Date(start);
-    const endDate = new Date(end);
+    const startDate = new Date(String(start));
+    const endDate = new Date(String(end));
     startDate.setMinutes(startDate.getMinutes() - 330);
     endDate.setMinutes(endDate.getMinutes() - 330);
 
@@ -145,7 +145,7 @@ export async function handleCancelAppointment(result: ParsedResult) {
     const appointment = await Appointment.findOneAndDelete({ 
         patient: patientId, 
         doctor: doctorId, 
-        slotStart: new Date(start) 
+        slotStart: new Date(String(start)) 
     });
     
     if (!appointment) {
@@ -162,7 +162,7 @@ export async function handleCancelAppointment(result: ParsedResult) {
 
 export async function handleGetAllAvailableSlots(result: ParsedResult) {
     const { doctorId, date } = result.function_call.arguments;
-    const slots = await getAvailableSlots(doctorId, new Date(date));
+    const slots = await getAvailableSlots(String(doctorId), new Date(String(date)));
     return NextResponse.json({ 
         slots: slots, 
         message: result.message, 
@@ -245,7 +245,7 @@ export async function handleCancelAppointmentById(result: ParsedResult) {
 
 export async function handleGetDoctorsInfo(result: ParsedResult) {
     const { name } = result.function_call.arguments;
-    const doctors = await Doctor.find({ name: new RegExp(name, 'i') });
+    const doctors = await Doctor.find({ name: new RegExp(String(name), 'i') });
     
     if (!doctors || doctors.length === 0) {
         return NextResponse.json({ 
