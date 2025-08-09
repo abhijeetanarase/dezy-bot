@@ -4,6 +4,7 @@ import { Doctor, Message, Slot } from "./types";
 import DoctorCard from "./components/DoctorCard";
 import { useRouter } from "next/navigation";
 import AppointmentList from "./components/AppointmentList";
+import { set } from "mongoose";
 
 export default function ChatPage() {
   const router = useRouter();
@@ -365,7 +366,9 @@ export default function ChatPage() {
                         className="mt-3 bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition-colors w-full"
                         onClick={() => {
                           if (message.doctor) {
+                             setInput(`I want to book with Dr. ${message.doctor.name}`);
                              setSelectedDoctor(message.doctor);
+                             setSelectedDoctorId(message.doctor._id);
                           }
                           setShowForm(true);
                         }}
@@ -419,37 +422,7 @@ export default function ChatPage() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Appointment Form Modal */}
-        {showForm && selectedDoctor && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg p-6 w-full max-w-md">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-bold text-teal-800">
-                  Book Appointment
-                </h3>
-                <button
-                  onClick={() => setShowForm(false)}
-                  className="text-gray-500 hover:text-gray-700"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+      
 
         {/* Input Area */}
         <div className="bg-white rounded-lg shadow-md p-4 border border-gray-200">
