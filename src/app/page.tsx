@@ -346,7 +346,7 @@ export default function ChatPage() {
                   )}
 
                   {message.appointment && message.appointment.length > 0 && (
-                    <div className="mt-3 space-y-3">
+                    <div className="mt-3 ">
                       <p className="font-medium text-teal-700">
                         Your Appointments:
                       </p>
@@ -525,7 +525,14 @@ export default function ChatPage() {
               onClick={() => setInput("Cancel my appointments")}
               className="text-xs bg-teal-50 text-teal-600 px-2 py-1 rounded hover:bg-teal-100"
             >
-              Cancel appointment
+              Cancel appointments
+            </button>
+
+              <button
+              onClick={() => setInput("Show me my all appointments")}
+              className="text-xs bg-teal-50 text-teal-600 px-2 py-1 rounded hover:bg-teal-100"
+            >
+                Get all appointments
             </button>
           </div>
         </div>

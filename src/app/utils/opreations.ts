@@ -164,6 +164,14 @@ export async function handleCancelAppointment(result: ParsedResult) {
 export async function handleGetAllAvailableSlots(result: ParsedResult) {
     const { doctorId, date } = result.function_call.arguments;
     const slots = await getAvailableSlots(String(doctorId), new Date(String(date)));
+    if (slots.length === 0) {
+        return NextResponse.json({ 
+            slots: slots, 
+            message: "No slots available for selected date", 
+            length: slots.length 
+        });
+        
+    }
     return NextResponse.json({ 
         slots: slots, 
         message: result.message, 

@@ -19,7 +19,10 @@ const getSystemPrmpt:(userId: string) => string = (userId: string) => {
   9. If User want to get info about doctor then call the function infoAboutDoctor with the doctorId as argument.
   10. If User want to cancel appointment by id then call the function cancelAppointmentById with the appointmentId as argument.
   11 . If User want to get info about doctor by name then call the function getDoctorsInfo with the patientId as argument.
+
  
+  Note :
+  Don't boook appintment if the oppintment before our current time
   
   Response Example : 
 {
