@@ -37,7 +37,7 @@ export async function POST(req: Request) {
   const headersList = await headers();
   const userId = headersList.get("x-user-id");
   const userEmail = headersList.get("x-user-email");
-  console.log("Middleware payload:", { userId, userEmail });
+ ;
 
   const systemPrompt = getSystemPrmpt(userId?.toString() ?? "");
 
@@ -68,7 +68,7 @@ export async function POST(req: Request) {
   }
 
   if (cleanedResult?.type === "function_call") {
-    console.log("Function Call Detected:", cleanedResult);
+   
 
     try {
       switch (cleanedResult.function_call.name) {
