@@ -1,5 +1,11 @@
 import { Appointment } from "./components/AppointmentList";
 
+export interface Slot {
+  start: string;
+  end: string;
+}
+
+
 export interface Message {
   id: string;
   text: string;
@@ -10,8 +16,7 @@ export interface Message {
   doctor?: Doctor;
   slotAvailable?: boolean;
   metadata?: any;
- slots?: { start: string; end: string }[];
-
+  slots?: Slot[];
 }
 
 export interface Doctor {
@@ -27,5 +32,5 @@ export interface Doctor {
   socialLinks?: { platform: string; url: string }[];
   address?: string;
   specialty?: string[];
-  slots ?: object[];
+  slots?: Slot[];
 }
