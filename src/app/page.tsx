@@ -509,31 +509,32 @@ export default function ChatPage() {
           </div>
           <div className="flex items-center mt-2 space-x-2">
             <span className="text-xs text-gray-500">Try:</span>
-            <button
-              onClick={() => setInput("Book an appointment")}
-              className="text-xs bg-teal-50 text-teal-600 px-2 py-1 rounded hover:bg-teal-100"
-            >
-              Book an appointment
-            </button>
-            <button
-              onClick={() => setInput("Check doctor availability")}
-              className="text-xs bg-teal-50 text-teal-600 px-2 py-1 rounded hover:bg-teal-100"
-            >
-              Check availability
-            </button>
-            <button
-              onClick={() => setInput("Cancel my appointments")}
-              className="text-xs bg-teal-50 text-teal-600 px-2 py-1 rounded hover:bg-teal-100"
-            >
-              Cancel appointments
-            </button>
-
+            <div className="overflow-x-auto flex space-x-2" style={{ scrollbarWidth: "none" }}>
               <button
-              onClick={() => setInput("Show me my all appointments")}
-              className="text-xs bg-teal-50 text-teal-600 px-2 py-1 rounded hover:bg-teal-100"
-            >
+                onClick={() => setInput("Book an appointment")}
+                className="text-xs bg-teal-50 text-teal-600 px-2 py-1 rounded hover:bg-teal-100"
+              >
+                Book an appointment
+              </button>
+              <button
+                onClick={() => setInput("Check doctor availability")}
+                className="text-xs bg-teal-50 text-teal-600 px-2 py-1 rounded hover:bg-teal-100"
+              >
+                Check availability
+              </button>
+              <button
+                onClick={() => setInput("Cancel my appointments")}
+                className="text-xs bg-teal-50 text-teal-600 px-2 py-1 rounded hover:bg-teal-100"
+              >
+                Cancel appointments
+              </button>
+              <button
+                onClick={() => setInput("Show me my all appointments")}
+                className="text-xs bg-teal-50 text-teal-600 px-2 py-1 rounded hover:bg-teal-100"
+              >
                 Get all appointments
-            </button>
+              </button>
+            </div>
           </div>
         </div>
       </main>
