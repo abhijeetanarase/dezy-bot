@@ -33,16 +33,16 @@ export async function middleware(request: NextRequest) {
 
     return NextResponse.next({ request: { headers } });
 
-  } catch (error: any) {
-    if (error.code === "ERR_JWT_EXPIRED") {
-      return unauthorizedResponse("Token expired");
-    }
-    if (error.code === "ERR_JWT_INVALID") {
-      return unauthorizedResponse("Invalid token");
-    }
-    console.error("Middleware error:", error);
-    return serverErrorResponse();
+  } catch (error: unknown) {
+  if ((error as { code: string }).code === "ERR_JWT_EXPIRED") {
+    return unauthorizedResponse("Token expired");
   }
+  if ((error as { code: string }).code === "ERR_JWT_INVALID") {
+    return unauthorizedResponse("Invalid token");
+  }
+  console.error("Middleware error:", error);
+  return serverErrorResponse();
+}
 }
 
 function shouldSkipMiddleware(pathname: string): boolean {
@@ -61,6 +61,14 @@ function unauthorizedResponse(message: string): NextResponse {
   );
 }
 
+/**
+ * Returns a 500 Internal Server Error response.
+ *
+ * This is a generic error response that can be used in middleware functions
+ * in case of an unexpected error.
+ *
+ * @returns A NextResponse with a 500 status code and a JSON body.
+ */
 function serverErrorResponse(): NextResponse {
   return new NextResponse(
     JSON.stringify({ error: "Internal server error" }),

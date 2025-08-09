@@ -6,6 +6,14 @@ export interface Slot {
 }
 
 
+export interface Metadata {
+  available: boolean;
+  slotStart?: string;
+  slotEnd?: string;
+  [key: string]: unknown; // allows extra backend data without `any`
+}
+
+
 export interface Message {
   id: string;
   text: string;
@@ -15,7 +23,7 @@ export interface Message {
   appointment?: Appointment[];
   doctor?: Doctor;
   slotAvailable?: boolean;
-  metadata?: any;
+  metadata?: Metadata;
   slots?: Slot[];
 }
 
@@ -28,6 +36,7 @@ export interface Doctor {
   experience?: string;
   education?: string;
   certifications?: string[];
+  specialization?: string[];
   bio?: string;
   socialLinks?: { platform: string; url: string }[];
   address?: string;
