@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import Appointment from "../models/Appointment";
 import { getAvailableSlots } from "../lib/calender";
 import Doctor from "../models/Doctor";
+
 import { ParsedResult } from "../api/appointments/route";
 
 export async function handleAvailableDoctors(result: ParsedResult) {
@@ -171,15 +172,15 @@ export async function handleGetAllAvailableSlots(result: ParsedResult) {
 }
 
 export async function handleGetDoctorAppointments(result: ParsedResult) {
-    const { doctorId } = result.function_call.arguments;
-    const appointments = await Appointment.find({ doctor: doctorId })
-        .populate('doctor')
-        .populate('patient')
-        .lean();
-    return NextResponse.json({ 
-        appointments: appointments, 
-        message: result.message 
-    });
+  const { doctorId } = result.function_call.arguments;
+  const appointments = await Appointment.find({ doctor: doctorId })
+    .populate('doctor')
+     .lean();
+  
+  return NextResponse.json({ 
+    appointments: appointments, 
+    message: result.message 
+  });
 }
 
 export async function handleCancelAllAppointments(result: ParsedResult) {
@@ -192,10 +193,12 @@ export async function handleCancelAllAppointments(result: ParsedResult) {
 
 export async function handleGetPatientAppointments(result: ParsedResult) {
     const { patientId } = result.function_call.arguments;
+    console.log(patientId);
+    
     const appointments = await Appointment.find({ patient: patientId })
         .populate('doctor')
-        .populate('patient')
-        .lean();
+    
+      
     
     if (appointments.length === 0) {
         return NextResponse.json({ 

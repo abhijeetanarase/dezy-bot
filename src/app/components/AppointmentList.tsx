@@ -84,7 +84,7 @@ const AppointmentList = ({ appointments = [], message = "", setCancelState }: Ap
               </span>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="2 gap-6">
               {/* Doctor Information Column */}
               <div className="space-y-3 text-gray-700">
                 <h4 className="font-medium text-gray-900 border-b pb-2">Appointment Details</h4>
@@ -116,37 +116,7 @@ const AppointmentList = ({ appointments = [], message = "", setCancelState }: Ap
                 )}
               </div>
 
-              {/* Patient Information Column */}
-              {appointment.patient && (
-                <div className="space-y-3 text-gray-700">
-                  <h4 className="font-medium text-gray-900 border-b pb-2">Patient Information</h4>
-                  
-                  <div className="flex">
-                    <span className="w-32 font-medium text-gray-600">Name:</span>
-                    <span>{appointment.patient.name}</span>
-                  </div>
-                  
-                  <div className="flex">
-                    <span className="w-32 font-medium text-gray-600">Email:</span>
-                    <span>{appointment.patient.email}</span>
-                  </div>
-                  
-                  <div className="flex">
-                    <span className="w-32 font-medium text-gray-600">Age:</span>
-                    <span>{appointment.patient.age}</span>
-                  </div>
-                  
-                  <div className="flex">
-                    <span className="w-32 font-medium text-gray-600">Phone:</span>
-                    <span>{appointment.patient.phone}</span>
-                  </div>
-                  
-                  <div className="flex">
-                    <span className="w-32 font-medium text-gray-600">Reason:</span>
-                    <span>{appointment.patient.reasonOfVisit}</span>
-                  </div>
-                </div>
-              )}
+            
             </div>
             
             <div className="flex justify-end space-x-3 mt-6 pt-4 border-t border-gray-100">

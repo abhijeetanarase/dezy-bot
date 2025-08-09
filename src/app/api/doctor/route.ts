@@ -1,3 +1,4 @@
+// app/api/doctor/route.ts
 import { NextResponse } from "next/server";
 import dbConnect from "@/app/lib/db";
 import Doctor from "@/app/models/Doctor";
@@ -15,7 +16,7 @@ export async function GET() {
         experience: "15 years in plastic and reconstructive surgery",
         clinic: "Dezy Clinic - Main Branch",
         isAvailable: true,
-        qualifications: ["MD", "MPH", "FACS"]
+        qualifications: ["MD", "MPH", "FACS"] // Now matches schema
       },
       {
         name: "Catherine Loflin, MD, FACS",
@@ -39,15 +40,24 @@ export async function GET() {
       }
     ];
 
-    // Clear old doctors to avoid duplicates
+    // Clear existing data
     await Doctor.deleteMany({});
-    // Insert new doctors
+    
+    // Insert new data
     await Doctor.insertMany(doctors);
 
-    return NextResponse.json({ success: true, message: "Doctors seeded successfully" });
+    return NextResponse.json({ 
+      success: true, 
+      message: `${doctors.length} doctors seeded successfully` 
+    });
   } catch (err) {
-    console.error(err);
-    return NextResponse.json({ success: false, error: (err as Error).message }, { status: 500 });
+    console.error("Seeding error:", err);
+    return NextResponse.json(
+      { 
+        success: false, 
+        error: err instanceof Error ? err.message : "Unknown error" 
+      },
+      { status: 500 }
+    );
   }
 }
-

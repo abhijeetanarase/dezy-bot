@@ -1,5 +1,7 @@
 import dbConnect from "@/app/lib/db";
+import User from "@/app/models/User";
 import { makeRequest } from "@/app/utils/gmini";
+
 import {
   handleAvailableDoctors,
   handleBookAppointment,
@@ -68,7 +70,8 @@ export async function POST(req: Request) {
   }
 
   if (cleanedResult?.type === "function_call") {
-   
+     console.log("Cleanup result:", cleanedResult);
+     
 
     try {
       switch (cleanedResult.function_call.name) {
