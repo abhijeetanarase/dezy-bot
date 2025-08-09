@@ -43,7 +43,7 @@ export const makeRequest = async (
 ): Promise<string | undefined> => {
   try {
     // 1. Fetch user conversation history from Redis
-    let history = await getHistory(userId);
+    const history = await getHistory(userId);
   
     
 
