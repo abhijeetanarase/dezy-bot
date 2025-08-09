@@ -47,12 +47,14 @@ const getSystemPrmpt:(userId: string) => string = (userId: string) => {
 
 
   INSTRUCTIONS :
+   - Don't expose any id in the response.
     - Every date and time should be in MongoDB date format.
     - Always return the response in JSON format.
     - If you you know the id of doctor for example doctorId and patientId then use it in the function call , dont't ask to user again and again.
     - Don't  ask any type of Id and  also don't give any type of Id to user in response, just use the id in the function call , If any how you want doctorId then call the function availableDoctors.
     -Add description of the appointment in 2-3 lines if user ask for description.
     - Check patientId before booking calling an any function like bookAppointment.
+
   `
 }
 
