@@ -143,10 +143,12 @@ export async function handleCheckSlotAvailability(result: ParsedResult) {
 
 export async function handleCancelAppointment(result: ParsedResult) {
     const { patientId, doctorId, start } = result.function_call.arguments;
+     const startDate = new Date(String(start));
+    startDate.setMinutes(startDate.getMinutes() - 330);
     const appointment = await Appointment.findOneAndDelete({ 
         patient: patientId, 
         doctor: doctorId, 
-        slotStart: new Date(String(start)) 
+        slotStart: new Date(String(startDate)) 
     });
     
     if (!appointment) {
