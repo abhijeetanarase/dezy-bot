@@ -38,8 +38,8 @@ export async function handleBookAppointment(result: ParsedResult) {
     const endUTC = new Date(String(end));
     
     // Convert from IST to UTC (if input is in IST)
-    startUTC.setMinutes(startUTC.getMinutes() - 330);
-    endUTC.setMinutes(endUTC.getMinutes() - 330);
+    // startUTC.setMinutes(startUTC.getMinutes() - 330);
+    // endUTC.setMinutes(endUTC.getMinutes() - 330);
 
     // Check for existing appointments
     const existingAppointment = await Appointment.findOne({
@@ -101,8 +101,8 @@ export async function handleCheckSlotAvailability(result: ParsedResult) {
 
     const startDate = new Date(String(start));
     const endDate = new Date(String(end));
-    startDate.setMinutes(startDate.getMinutes() - 330);
-    endDate.setMinutes(endDate.getMinutes() - 330);
+    // startDate.setMinutes(startDate.getMinutes() - 330);
+    // endDate.setMinutes(endDate.getMinutes() - 330);
 
     if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
         return NextResponse.json(
@@ -144,7 +144,7 @@ export async function handleCheckSlotAvailability(result: ParsedResult) {
 export async function handleCancelAppointment(result: ParsedResult) {
     const { patientId, doctorId, start } = result.function_call.arguments;
      const startDate = new Date(String(start));
-    startDate.setMinutes(startDate.getMinutes() - 330);
+    // startDate.setMinutes(startDate.getMinutes() - 330);
     const appointment = await Appointment.findOneAndDelete({ 
         patient: patientId, 
         doctor: doctorId, 
@@ -182,8 +182,8 @@ export async function handleGetAllAvailableSlots(result: ParsedResult) {
 }
 
 export async function handleGetDoctorAppointments(result: ParsedResult) {
-  const { doctorId } = result.function_call.arguments;
-  const appointments = await Appointment.find({ doctor: doctorId })
+  const { doctorId , patientId } = result.function_call.arguments;
+  const appointments = await Appointment.find({ doctor: doctorId  , patient : patientId})
     .populate('doctor')
      .lean();
   
@@ -195,9 +195,15 @@ export async function handleGetDoctorAppointments(result: ParsedResult) {
 
 export async function handleCancelAllAppointments(result: ParsedResult) {
     const { patientId } = result.function_call.arguments;
-    await Appointment.deleteMany({ patient: patientId });
+   const appointments = await Appointment.deleteMany({ patient: patientId });
+   if (appointments.deletedCount === 0) {
     return NextResponse.json({ 
-        message: result.message 
+        message: "You have no Appointments" 
+    });
+    
+   }
+    return NextResponse.json({ 
+        message: "All appointments cancelled"
     });
 }
 
@@ -243,11 +249,11 @@ export async function handleInfoAboutDoctor(result: ParsedResult) {
 export async function handleCancelAppointmentById(result: ParsedResult) {
     const { appointmentId } = result.function_call.arguments;
     const appointment = await Appointment.findByIdAndDelete(appointmentId);
-    
+
     if (!appointment) {
         return NextResponse.json({ 
-            error: "Appointment not found" 
-        }, { status: 404 });
+            message: "Appointment that you want to cancel is already cancelled" 
+        });
     }
     
     return NextResponse.json({ 

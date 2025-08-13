@@ -1,6 +1,8 @@
 import dbConnect from "@/app/lib/db";
 import User from "@/app/models/User";
-import { makeRequest } from "@/app/utils/gmini";
+import { makeRequest } from "@/app/utils/gemini";
+
+
 
 import {
   handleAvailableDoctors,
@@ -69,13 +71,16 @@ export async function POST(req: Request) {
     );
   }
 
-  if (cleanedResult?.type === "function_call") {
-     console.log("Cleanup result:", cleanedResult);
+  console.log("Cleaned Result:", cleanedResult);
+  
+
+  if (cleanedResult?.type === "function_call" || cleanedResult.function_call) {
+    
      
 
     try {
       switch (cleanedResult.function_call.name) {
-        case "availableDoctors":
+        case "getAvailableDoctors":
           return await handleAvailableDoctors(cleanedResult);
 
         case "selectDoctor":

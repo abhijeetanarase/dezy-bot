@@ -54,11 +54,11 @@ const AppointmentList = ({ appointments = [], message = "", setCancelState }: Ap
 
   return (
     <div className="max-w-4xl mx-auto  py-2 font-sans">
-      {message && (
+      {/* {message && (
         <div className="bg-blue-50 px-4 py-3 rounded-md mb-6 text-sm sm:text-base text-blue-800">
           {message}
         </div>
-      )}
+      )} */}
       
       {appointments.length === 0 ? (
         <div className="text-center py-12">

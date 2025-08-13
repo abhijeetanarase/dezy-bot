@@ -56,7 +56,7 @@ export default function ChatPage() {
     try {
       const formattedInput =
         input +
-        `${selectedDoctor ? `with  doctorID : ${selectedDoctorId}` : ""} ${
+        `${selectedDoctorId ? `with  doctorID : ${selectedDoctorId}` : ""} ${
           slectedSlot
             ? `and slot : ${slectedSlot}`
             : "" +

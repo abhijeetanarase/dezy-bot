@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/clinic-assistant";
+const MONGO_URI = process.env.MONGO_URI;
 
 if (!MONGO_URI) {
     throw new Error("Please add your Mongo URI to .env.local");
@@ -14,7 +14,7 @@ export default async function dbConnect() {
     }
 
     try {
-        cachedConnection = mongoose.connect(MONGO_URI);
+        cachedConnection = mongoose.connect(MONGO_URI!);
         await cachedConnection;
         console.log("MongoDB connected successfully");
         return cachedConnection;
