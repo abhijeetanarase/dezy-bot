@@ -42,7 +42,7 @@ export const makeRequest = async (
   prompt: string
 ): Promise<string | undefined> => {
   try {
-    let history = await getHistory(userId);
+    const history = await getHistory(userId);
     history.push(new HumanMessage(prompt));
     const trimmedHistory  = [];
     trimmedHistory.push(new SystemMessage(systemPrompt));

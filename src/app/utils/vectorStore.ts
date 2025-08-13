@@ -1,4 +1,3 @@
-
 import { CloudClient, Collection } from "chromadb";
 
 const chromadbClient = new CloudClient({
@@ -9,7 +8,7 @@ const chromadbClient = new CloudClient({
 
 async function getCollection(): Promise<Collection> {
   return await chromadbClient.getOrCreateCollection({
-    name: "conversation_messages", 
+    name: "conversation_messages",
   });
 }
 
@@ -33,6 +32,7 @@ export async function addMessages(
 }
 
 
+
 export async function queryMessages(
   userId: string,
   query: string,
@@ -43,16 +43,11 @@ export async function queryMessages(
   const results = await collection.query({
     queryTexts: [query],
     nResults,
-    where: { userId }, 
+    where: { userId },
   });
 
   const formatted = {
-    documents: results.documents[0],
-    metadatas: results.metadatas[0]?.map((m: any) => ({
-      userId: m.userId,
-      role: m.role,
-      storedAt: m.storedAt,
-    })),
+    documents: results.documents[0]
   };
 
   return formatted;

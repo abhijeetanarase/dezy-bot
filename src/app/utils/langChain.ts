@@ -23,7 +23,7 @@ export const makeRequest = async (
 ): Promise<string | undefined> => {
   try {
    const relevantDocs = await queryMessages(userId, prompt, 6);
-   const context = relevantDocs.documents?.flat() || [];
+   const context = [...relevantDocs.documents?.flat()];
    const messagesForGeneration = [
       new SystemMessage(systemPrompt),
       new HumanMessage(`User Context:\n${context.join("\n")}\n\nCurrent Question: ${prompt}`)
